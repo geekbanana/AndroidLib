@@ -56,7 +56,7 @@ public class PageStateLayout extends FrameLayout {
 
         if (null == mErrorView) {
             mErrorView = initErrorView();
-            mEmptyView.setOnClickListener(listener);
+            mErrorView.setOnClickListener(listener);
             addView(mErrorView);
         }
 

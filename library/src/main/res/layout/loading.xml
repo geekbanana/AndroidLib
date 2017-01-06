@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<z.sye.space.library.widget.MaterialProgress
+<com.cavalry.androidlib.view.stateview.view.MaterialProgress
     android:id="@+id/loadingProgress"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="80dp"

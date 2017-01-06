@@ -18,7 +18,10 @@ import com.cavalry.androidlib.sample.toolbox.manager.ApiManager;
 import com.cavalry.androidlib.sample.ui.adapter.gankio.BeautyAdapter;
 import com.cavalry.androidlib.sample.ui.fragment.gankio.base.GankioBaseFragment;
 import com.cavalry.androidlib.toolbox.exception.LibException;
+import com.cavalry.androidlib.toolbox.utils.LibResUtils;
 import com.cavalry.androidlib.toolbox.utils.LibToastUtils;
+import com.cavalry.androidlib.view.stateview.helper.VaryViewHelperController;
+import com.cavalry.androidlib.view.stateview.view.PageStateLayout;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +47,7 @@ public class BeautyFragment extends GankioBaseFragment {
 
     private StaggeredGridLayoutManager layoutManager;
     private BeautyAdapter mBeautyAdapter;
+    private VaryViewHelperController controller;
 
     @Nullable
     @Override
@@ -72,6 +76,20 @@ public class BeautyFragment extends GankioBaseFragment {
         rvBeauty.setLayoutManager(layoutManager);
         mBeautyAdapter = new BeautyAdapter(this, null);
         rvBeauty.setAdapter(mBeautyAdapter);
+
+        controller = new VaryViewHelperController(rvBeauty);
+        controller.showState(PageStateLayout.PageState.ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.restore();
+            }
+        });
+//        controller.showState(LibResUtils.getDrawable(R.mipmap.ic_launcher), "戳错了", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                controller.restore();
+//            }
+//        });
     }
 
     @Override
