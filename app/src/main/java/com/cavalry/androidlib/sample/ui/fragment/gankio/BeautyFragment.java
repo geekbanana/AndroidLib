@@ -18,15 +18,14 @@ import com.cavalry.androidlib.sample.toolbox.manager.ApiManager;
 import com.cavalry.androidlib.sample.ui.adapter.gankio.BeautyAdapter;
 import com.cavalry.androidlib.sample.ui.fragment.gankio.base.GankioBaseFragment;
 import com.cavalry.androidlib.toolbox.exception.LibException;
-import com.cavalry.androidlib.toolbox.utils.LibResUtils;
 import com.cavalry.androidlib.toolbox.utils.LibToastUtils;
 import com.cavalry.androidlib.view.stateview.helper.VaryViewHelperController;
-import com.cavalry.androidlib.view.stateview.view.PageStateLayout;
 
 import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * gankio福利页面
@@ -42,9 +41,6 @@ public class BeautyFragment extends GankioBaseFragment {
 
     private final static int TAG_BEAUTY = 1;
 
-    private int mPageNo = 0;
-    private final int PAGE_SIZE = 20;
-
     private StaggeredGridLayoutManager layoutManager;
     private BeautyAdapter mBeautyAdapter;
     private VaryViewHelperController controller;
@@ -52,6 +48,7 @@ public class BeautyFragment extends GankioBaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setRLMode(PtrFrameLayout.Mode.BOTH);
         View view = inflater.inflate(R.layout.fragment_beauty, container, false);
         return view;
     }
@@ -77,25 +74,20 @@ public class BeautyFragment extends GankioBaseFragment {
         mBeautyAdapter = new BeautyAdapter(this, null);
         rvBeauty.setAdapter(mBeautyAdapter);
 
-        controller = new VaryViewHelperController(rvBeauty);
-        controller.showState(PageStateLayout.PageState.ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controller.restore();
-            }
-        });
-//        controller.showState(LibResUtils.getDrawable(R.mipmap.ic_launcher), "戳错了", new View.OnClickListener() {
+//        controller = new VaryViewHelperController(rvBeauty);
+//        controller.showState(PageStateLayout.PageState.ERROR, new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                controller.restore();
 //            }
 //        });
+
     }
 
     @Override
     public void loadData() {
         mPresenter.getDataCache(
-                assembleUrl(ApiManager.GANKIO_BEAUTY,PAGE_SIZE+"","1"),
+                assembleUrl(ApiManager.GANKIO_BEAUTY,PAGE_SIZE+"",++mPageNo+""),
                 TAG_BEAUTY,
                 new TypeReference<GankioBaseBean<List<BeautyBean>>>(){}.getType());
     }
@@ -106,15 +98,23 @@ public class BeautyFragment extends GankioBaseFragment {
     }
 
     @Override
-    public void onSuccess(Object bean, int tag) {
+    protected View getRLView() {
+        return rvBeauty;
+    }
+
+    @Override
+    public void success(Object bean, int tag) {
         if(tag==TAG_BEAUTY){
-            List<BeautyBean> beautyBeanList = (List<BeautyBean>) bean;
-            mBeautyAdapter.addData(beautyBeanList);
+            if(isRefreshing()){
+                mBeautyAdapter.setNewData((List<BeautyBean>) bean);
+            }else{
+                mBeautyAdapter.addData((List<BeautyBean>) bean);
+            }
         }
     }
 
     @Override
-    public void onError(Throwable e, int tag) {
+    public void error(Throwable e, int tag) {
         if(e instanceof LibException){
             LibException exception = (LibException) e;
             LibToastUtils.toast(exception.getMessage());
@@ -125,5 +125,17 @@ public class BeautyFragment extends GankioBaseFragment {
         }
     }
 
+    @Override
+    protected void onRefreshStart(PtrFrameLayout frame) {
+        super.onRefreshStart(frame);
+        mPresenter.getData(
+                assembleUrl(ApiManager.GANKIO_BEAUTY,PAGE_SIZE+"",++mPageNo+""),
+                TAG_BEAUTY,
+                new TypeReference<GankioBaseBean<List<BeautyBean>>>(){}.getType());
+    }
 
+    @Override
+    protected void onLoadMoreStart(PtrFrameLayout frame) {
+        loadData();
+    }
 }

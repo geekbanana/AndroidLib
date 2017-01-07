@@ -29,6 +29,7 @@ public abstract class LibBaseFragment extends Fragment implements IFunction,IVie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+        beforeOnViewCreated(view);
         initView();
         loadData();
     }
@@ -37,5 +38,14 @@ public abstract class LibBaseFragment extends Fragment implements IFunction,IVie
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    /**
+     * 在OnViewCreated之前执行的方法, 可以对view进行一些操作. 默认不做任何修改.
+     * @param view
+     * @return
+     */
+    protected View beforeOnViewCreated(View view){
+        return view;
     }
 }

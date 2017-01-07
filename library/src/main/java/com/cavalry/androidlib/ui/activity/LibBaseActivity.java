@@ -41,7 +41,7 @@ public abstract class LibBaseActivity extends AppCompatActivity implements IView
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
+        super.setContentView(beforeSetContentView(view), params);
         ButterKnife.bind(this);
         initView();
         loadData();
@@ -51,5 +51,14 @@ public abstract class LibBaseActivity extends AppCompatActivity implements IView
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    /**
+     * 在setContentView之前执行的方法, 可以对view进行一些操作. 默认不做任何修改.
+     * @param view
+     * @return
+     */
+    protected View beforeSetContentView(View view){
+        return view;
     }
 }

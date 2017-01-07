@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
 
@@ -157,12 +158,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onSuccess(Object bean, int tag) {
+    public void success(Object bean, int tag) {
 
     }
 
     @Override
-    public void onError(Throwable e, int tag) {
+    public void error(Throwable e, int tag) {
 
     }
 

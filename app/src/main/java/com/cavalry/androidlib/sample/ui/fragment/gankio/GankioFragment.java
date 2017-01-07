@@ -66,12 +66,12 @@ public class GankioFragment extends GankioBaseFragment {
     }
 
     @Override
-    public void onSuccess(Object bean, int tag) {
+    public void success(Object bean, int tag) {
 
     }
 
     @Override
-    public void onError(Throwable e, int tag) {
+    public void error(Throwable e, int tag) {
 
     }
 }

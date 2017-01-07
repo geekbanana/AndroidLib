@@ -24,7 +24,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
 
 
     /**
-     * GET 方式获取数据
+     * GET 方式获取数据, 不使用缓存
      *
      * @param url       除参数外的完整url
      * @param tag       自己定义的一个整形,用于区分不同的请求
@@ -35,7 +35,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
     }
 
     /**
-     * GET 方式获取数据
+     * GET 方式获取数据, 不使用缓存
      *
      * @param url       除参数外的完整url
      * @param tag       自己定义的一个整形,用于区分不同的请求
