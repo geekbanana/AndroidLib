@@ -1,7 +1,7 @@
 package com.cavalry.androidlib.toolbox.utils;
 
 /**
- * 将Object类型转换为数值类型
+ * 将Object类型安全的转换为数值类型
  * @author Cavalry Lin
  * @since 1.0.0
  */
@@ -30,7 +30,7 @@ public class LibConvertNumberUtils {
 
         try {
             return Double.valueOf(value.toString());
-        } catch (Exception e1) {
+        } catch (Exception e) {
             return defaultValue;
         }
     }
@@ -42,8 +42,12 @@ public class LibConvertNumberUtils {
 
         try {
             return Long.valueOf(value.toString());
-        } catch (Exception e1) {
-            return defaultValue;
+        } catch (Exception e) {
+            try {
+                return Double.valueOf(value.toString()).intValue();
+            } catch (Exception e1) {
+                return defaultValue;
+            }
         }
     }
 }
