@@ -22,5 +22,39 @@
     <dimen name="button_height_short">32dp</dimen>
 
 
+    <!--
+        style命名规则:
+            1.类型 - 2.文字应用类型 - 3.layout_width - 4.paddingLeft,Right/marginLeft,Right
+
+            1. Text/Button
+            2. comment(说明性文字)/content(正文)/title(标题)/big(大标题)  每一种文字应用类型对应一组 textSize和textColor
+            3. Wrap/Match
+            4. PSmall/PNormal/PLarge  MSmall/MNormal/MLarge  (P代表paddingLeft,Right; M代表marginLeft,Right)
+
+        根据经验, Android中常用来显示字体的控件是: TextView和Button.
+        通常,
+        1. 高度 = wrap_content + paddingTop + paddingBottom
+        2. 宽度 = wrap_content + paddingLeft + paddingRight
+           或 宽度 = match_parent + marginLeft + marginRight
+
+        可见宽度是比较多变的, 高度基本固定, 因此规则的后两项是针对宽度来命名的.
+
+        例:
+        ButtonNormal
+    -->
+
+    <!-- TextView -->
+    <style name="TextNormal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Button -->
+    <style name="ButtonNormal" parent="TextNormal">
+        <item name="android:padding">@dimen/spacing_normal</item>
+    </style>
+
 
 </resources>
