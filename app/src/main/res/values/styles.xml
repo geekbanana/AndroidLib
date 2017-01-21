@@ -22,5 +22,54 @@
     </style>
 
 
+    <!--
+        style命名规则:
+            1.Text - 2.文字应用类型 - 3.layout_width - 4.paddingLeft,Right - 5.marginLeft,Right
+
+            1. TextView
+            2. comment(说明性文字)/content(正文)/title(标题)/big(大标题)  每一种文字应用类型对应一组 textSize和textColor
+            3. Wrap/Match
+            4. PSmall/PNormal/PLarge    (P代表paddingLeft,Right)
+            5. MSmall/MNormal/MLarge    (M代表marginLeft,Right)
+
+            ===================================================================================================
+
+            1.Button - 2.大小 - 3.layout_width - 4.paddingLeft,Right - 5.marginLeft,Right
+
+            1. Button
+            2. Small/Nromal/Big  每一种大小对应一组 textSize和textColor
+            3. Wrap/Match
+            4. PSmall/PNormal/PLarge    (P代表paddingLeft,Right)
+            5. MSmall/MNormal/MLarge    (M代表marginLeft,Right)
+
+        根据经验, Android中常用来显示字体的控件是: TextView和Button.
+        通常,
+        1. 高度(通常为wrap_content) = 内容高度 + paddingTop + paddingBottom
+        2. 宽度(当为wrap_content时) = 内容宽度 + paddingLeft + paddingRight
+           或 宽度(当为match_parent时) = 父View宽度 - marginLeft - marginRight
+
+        可见宽度是比较多变的, 高度基本固定, 因此规则的后三项是针对宽度来命名的.
+
+        例:
+        TextContentWrap: TextView, 文字应用类型为Content(正文), 宽度为warp_content. Padding/Margin为默认值,故省略.
+        ButtonNormalMatchMLarge: Button, 大小为Normal, 宽度为match_parent, Margin为large, Padding为默认值, 故省略.
+
+    -->
+
+    <!-- TextView -->
+    <style name="TextContentWrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Button -->
+    <style name="ButtonNormalWrapPNormal" parent="TextContentWrap">
+        <item name="android:paddingTop">@dimen/spacing_small</item>
+        <item name="android:paddingBottom">@dimen/spacing_small</item>
+        <item name="android:paddingLeft">@dimen/spacing_normal</item>
+        <item name="android:paddingRight">@dimen/spacing_normal</item>
+    </style>
 
 </resources>

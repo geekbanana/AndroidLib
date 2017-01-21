@@ -6,14 +6,21 @@
     >
 
     <ViewStub
+        android:id="@+id/vsLogined"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:inflatedId="@+id/container_logined"
-        android:layout="@layout/layout_logined"
+        android:layout="@layout/layout_signed"
         />
 
 
-
+    <ViewStub
+        android:id="@+id/vsUnlogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inflatedId="@+id/container_unlogin"
+        android:layout="@layout/layout_unsign"
+        />
 
 
 </FrameLayout>
