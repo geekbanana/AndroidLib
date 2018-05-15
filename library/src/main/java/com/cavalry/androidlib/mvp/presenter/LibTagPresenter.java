@@ -27,7 +27,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * GET 方式获取数据, 不使用缓存
      *
      * @param url       除参数外的完整url
-     * @param tag       自己定义的一个整形,用于区分不同的请求
+     * @param tag       自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param beanClazz bean对象的Class
      */
     public void getData(String url, int tag, Class beanClazz) {
@@ -38,7 +38,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * GET 方式获取数据, 不使用缓存
      *
      * @param url       除参数外的完整url
-     * @param tag       自己定义的一个整形,用于区分不同的请求
+     * @param tag       自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param typeOfT   有泛型的bean的Type,通过{@code  new com.alibaba.fastjson.TypeReference<Bean<BeanGeneric>>(){}.getType()}获得
      */
     public void getData(String url, int tag, Type typeOfT) {
@@ -49,7 +49,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * GET 方式获取数据, 使用缓存
      *
      * @param url           除参数外的完整url
-     * @param tag           自己定义的一个整形,用于区分不同的请求
+     * @param tag           自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param beanClazz     bean对象的Class
      */
     public void getDataCache(String url, int tag, Class beanClazz) {
@@ -60,7 +60,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * GET 方式获取数据, 使用缓存
      *
      * @param url       除参数外的完整url
-     * @param tag       自己定义的一个整形,用于区分不同的请求
+     * @param tag       自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param typeOfT   有泛型的bean的Type,通过{@code  new com.alibaba.fastjson.TypeReference<Bean<BeanGeneric>>(){}.getType()}获得
      */
     public void getDataCache(String url, int tag, Type typeOfT) {
@@ -72,7 +72,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * POST 方式获取数据
      *
      * @param url           除参数外的完整url
-     * @param tag           自己定义的一个整形,用于区分不同的请求
+     * @param tag           自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param beanClazz     bean对象的Class
      */
     public void postData(String url, int tag, Class beanClazz) {
@@ -83,7 +83,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * POST 方式获取数据
      *
      * @param url       除参数外的完整url
-     * @param tag       自己定义的一个整形,用于区分不同的请求
+     * @param tag       自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param typeOfT   有泛型的bean的Type,通过{@code  new com.alibaba.fastjson.TypeReference<Bean<BeanGeneric>>(){}.getType()}获得
      */
     public void postData(String url, int tag, Type typeOfT) {
@@ -94,7 +94,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * 获取数据
      *
      * @param url       除参数外的完整url
-     * @param tag       自己定义的一个整形,用于区分不同的请求
+     * @param tag       自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param beanClazz bean对象的Class
      * @param method    {@link #GET} 或者 {@link #POST}
      * @param cache     是否缓存
@@ -106,7 +106,7 @@ public abstract class LibTagPresenter<V> extends BasePresenter<V> {
      * 获取数据
      *
      * @param url       除参数外的完整url
-     * @param tag       自己定义的一个整形,用于区分不同的请求
+     * @param tag       自己定义的一个整形,用于区分一个页面多个请求的情况
      * @param typeOfT   有泛型的bean的Type,通过{@code  new com.alibaba.fastjson.TypeReference<Bean<BeanGeneric>>(){}.getType()}获得
      * @param method    {@link #GET} 或者 {@link #POST}
      * @param cache     是否缓存

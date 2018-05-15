@@ -7,3 +7,7 @@
 /build
 /captures
 .externalNativeBuild
+/.idea
+/library/build
+/ptr-lib/build
+
