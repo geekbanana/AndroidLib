@@ -15,7 +15,6 @@ import com.cavalry.androidlib.sample.ui.fragment.gankio.base.GankioBaseFragment;
 import java.util.Arrays;
 import java.util.Map;
 
-import butterknife.Bind;
 
 /**
  * @author Cavalry Lin
@@ -24,17 +23,18 @@ import butterknife.Bind;
 
 public class GankioFragment extends GankioBaseFragment {
 
-    @Bind(R.id.tab_layout)
     TabLayout tabLayout;
-    @Bind(R.id.view_pager)
     ViewPager viewPager;
+
+
     private String[] mTabs;
+    private View mBaseView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gankio, container,false);
-        return view;
+        mBaseView = inflater.inflate(R.layout.fragment_gankio, container,false);
+        return mBaseView;
     }
 
     @Override
@@ -49,6 +49,9 @@ public class GankioFragment extends GankioBaseFragment {
 
     @Override
     public void initView() {
+        tabLayout = (TabLayout) mBaseView.findViewById(R.id.tab_layout);
+        viewPager = (ViewPager) mBaseView.findViewById(R.id.view_pager);
+
         GankioPagerAdapter gankioPagerAdapter = new GankioPagerAdapter(getFragmentManager(), Arrays.asList(mTabs));
         viewPager.setAdapter(gankioPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

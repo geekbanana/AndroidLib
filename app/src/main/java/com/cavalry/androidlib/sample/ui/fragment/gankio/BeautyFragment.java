@@ -24,7 +24,6 @@ import com.cavalry.androidlib.view.stateview.helper.VaryViewHelperController;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
@@ -35,8 +34,6 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 
 public class BeautyFragment extends GankioBaseFragment {
-
-    @Bind(R.id.rv_beauty)
     RecyclerView rvBeauty;
 
     private final static int TAG_BEAUTY = 1;
@@ -44,13 +41,14 @@ public class BeautyFragment extends GankioBaseFragment {
     private StaggeredGridLayoutManager layoutManager;
     private BeautyAdapter mBeautyAdapter;
     private VaryViewHelperController controller;
+    private View mBaseView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setRLMode(PtrFrameLayout.Mode.BOTH);
-        View view = inflater.inflate(R.layout.fragment_beauty, container, false);
-        return view;
+        mBaseView = inflater.inflate(R.layout.fragment_beauty, container, false);
+        return mBaseView;
     }
 
     @Override
@@ -65,6 +63,8 @@ public class BeautyFragment extends GankioBaseFragment {
 
     @Override
     public void initView() {
+        rvBeauty = (RecyclerView) mBaseView.findViewById(R.id.rv_beauty);
+
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         else

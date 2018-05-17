@@ -15,7 +15,7 @@ android {
     buildTypes {
         release {
             //混淆
-            minifyEnabled false
+            minifyEnabled true
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件
@@ -36,7 +36,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '26.0.2'
 }
+
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')

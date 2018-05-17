@@ -8,7 +8,6 @@ import android.view.View;
 import com.cavalry.androidlib.mvp.view.IView;
 import com.cavalry.androidlib.ui.inter.IFunction;
 
-import butterknife.ButterKnife;
 
 /**
  * @author Cavalry Lin
@@ -16,6 +15,7 @@ import butterknife.ButterKnife;
  */
 
 public abstract class LibBaseFragment extends Fragment implements IFunction,IView{
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,16 +28,14 @@ public abstract class LibBaseFragment extends Fragment implements IFunction,IVie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this,view);
-        beforeOnViewCreated(view);
         initView();
         loadData();
+        afterOnViewCreated(view);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     /**
@@ -45,7 +43,7 @@ public abstract class LibBaseFragment extends Fragment implements IFunction,IVie
      * @param view
      * @return
      */
-    protected View beforeOnViewCreated(View view){
+    protected View afterOnViewCreated(View view){
         return view;
     }
 }

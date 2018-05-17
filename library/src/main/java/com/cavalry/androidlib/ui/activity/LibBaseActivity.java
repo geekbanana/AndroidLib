@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.cavalry.androidlib.mvp.view.IView;
 import com.cavalry.androidlib.ui.inter.IFunction;
 
-import butterknife.ButterKnife;
 
 /**
  * @author Cavalry Lin
@@ -41,16 +40,15 @@ public abstract class LibBaseActivity extends AppCompatActivity implements IView
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(beforeSetContentView(view), params);
-        ButterKnife.bind(this);
+        super.setContentView(view, params);
         initView();
         loadData();
+        afterSetContentView(view);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     /**
@@ -58,7 +56,7 @@ public abstract class LibBaseActivity extends AppCompatActivity implements IView
      * @param view
      * @return
      */
-    protected View beforeSetContentView(View view){
+    protected View afterSetContentView(View view){
         return view;
     }
 }

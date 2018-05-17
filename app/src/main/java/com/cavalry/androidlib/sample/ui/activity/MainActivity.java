@@ -16,7 +16,8 @@ import com.cavalry.androidlib.sample.ui.fragment.gankio.GankioFragment;
 
 import java.util.Map;
 
-import butterknife.Bind;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+
 
 /**
  * @author Cavalry Lin
@@ -25,11 +26,8 @@ import butterknife.Bind;
 public class MainActivity extends BaseActivity {
 
     private final String TAG = "MainActivity";
-    @Bind(R.id.frame)
     FrameLayout frame;
-    @Bind(R.id.navigation_view)
     NavigationView navigationView;
-    @Bind(R.id.drawer)
     DrawerLayout drawer;
 
 
@@ -39,7 +37,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
 
@@ -56,6 +53,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         findViewById(R.id.vsLogined);
+        frame = (FrameLayout) findViewById(R.id.frame);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        drawer = (DrawerLayout) findViewById(R.id.drawer);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

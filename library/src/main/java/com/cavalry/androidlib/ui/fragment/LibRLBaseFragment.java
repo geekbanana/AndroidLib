@@ -45,7 +45,7 @@ public abstract class LibRLBaseFragment extends LibBaseFragment {
 
 
     @Override
-    protected View beforeOnViewCreated(View view) {
+    protected View afterOnViewCreated(View view) {
         if(getRLMode() != PtrFrameLayout.Mode.NONE){
             addRefreshLoadmore(getRLView());
         }

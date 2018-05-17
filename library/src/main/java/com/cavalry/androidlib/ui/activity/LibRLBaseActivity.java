@@ -42,7 +42,7 @@ public abstract class LibRLBaseActivity extends LibBaseActivity {
 
 
     @Override
-    protected View beforeSetContentView(View view) {
+    protected View afterSetContentView(View view) {
         if(getRLMode() != PtrFrameLayout.Mode.NONE){
             addRefreshLoadmore(getRLView());
         }
