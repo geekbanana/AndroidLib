@@ -158,7 +158,7 @@
 #保留一个完整的包
 -keep com.cavalry.androidlib.view.** {
     *;
- }
+}
 
 #-keep class  com.veidy.activity.login.WebLoginActivity{*;}
 #-keep class  com.veidy.activity.UserInfoFragment{*;}

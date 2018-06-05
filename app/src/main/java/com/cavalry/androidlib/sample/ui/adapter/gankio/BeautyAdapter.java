@@ -4,9 +4,9 @@ package com.cavalry.androidlib.sample.ui.adapter.gankio;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.cavalry.androidlib.sample.R;
 import com.cavalry.androidlib.sample.bean.gankio.BeautyBean;
-import com.cavalry.androidlib.toolbox.imageloader.ImageLoaderHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -32,12 +32,9 @@ public class BeautyAdapter extends BaseQuickAdapter<BeautyBean,BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder baseViewHolder, BeautyBean bean) {
-        ImageLoaderHelper
-                .getInstance()
-                .loadImage(mFragment,
-                        bean.url,
-                        (ImageView) baseViewHolder.getView(R.id.image),
-                        null);
+        Glide.with(mFragment)
+                .load(bean.url)
+                .into((ImageView) baseViewHolder.getView(R.id.image));
 
         baseViewHolder.setText(R.id.title,bean.desc);
     }

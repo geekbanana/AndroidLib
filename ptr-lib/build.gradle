@@ -26,7 +26,7 @@ android {
 
         androidTest.setRoot('tests')
     }
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.1'
 }
 
 
