@@ -156,9 +156,9 @@
 #忽略警告
 -dontwarn com.cavalry.androidlib.view.**
 #保留一个完整的包
--keep com.cavalry.androidlib.view.** {
+-keep class com.cavalry.androidlib.view.** {
     *;
- }
+}
 
 #-keep class  com.veidy.activity.login.WebLoginActivity{*;}
 #-keep class  com.veidy.activity.UserInfoFragment{*;}

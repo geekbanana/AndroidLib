@@ -1,7 +1,5 @@
 package com.cavalry.androidlib.ui.fragment;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,6 +118,12 @@ public abstract class LibRLBaseFragment extends LibBaseFragment {
      */
     protected PtrFrameLayout getPtrFramLayout(){
         return mPtrFrameLayout;
+    }
+
+    protected void autoRefresh(){
+        if(mPtrFrameLayout != null){
+            mPtrFrameLayout.autoRefresh();
+        }
     }
 
     protected boolean isRefreshing(){

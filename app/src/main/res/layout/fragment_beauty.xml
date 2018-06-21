@@ -3,9 +3,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/btnChangeState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="切换状态"
+        android:visibility="gone"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_beauty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
+
+
 
 </LinearLayout>

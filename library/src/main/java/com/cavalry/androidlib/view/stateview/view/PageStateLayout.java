@@ -1,10 +1,12 @@
 package com.cavalry.androidlib.view.stateview.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.cavalry.androidlib.R;
@@ -25,9 +27,7 @@ public class PageStateLayout extends FrameLayout {
     private MaterialProgress mLoading;
 
     public PageStateLayout(Context context) {
-        super(context);
-        init();
-        mContext = context;
+        this(context,null);
     }
 
     public PageStateLayout(Context context, AttributeSet attrs) {
@@ -40,6 +40,7 @@ public class PageStateLayout extends FrameLayout {
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
         setLayoutParams(params);
+        setBackgroundColor(Color.RED);
     }
 
 
@@ -90,11 +91,11 @@ public class PageStateLayout extends FrameLayout {
 
     private View initErrorView() {
         View errorView = LayoutInflater.from(mContext).inflate(R.layout.error, null, false);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT
         );
-        params.gravity = Gravity.CENTER;
+//        params.gravity = Gravity.CENTER;
         errorView.setLayoutParams(params);
         return errorView;
     }

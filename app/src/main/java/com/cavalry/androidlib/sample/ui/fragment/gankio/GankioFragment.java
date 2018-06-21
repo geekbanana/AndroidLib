@@ -51,6 +51,7 @@ public class GankioFragment extends GankioBaseFragment {
     public void initView() {
         GankioPagerAdapter gankioPagerAdapter = new GankioPagerAdapter(getFragmentManager(), Arrays.asList(mTabs));
         viewPager.setAdapter(gankioPagerAdapter);
+        viewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }

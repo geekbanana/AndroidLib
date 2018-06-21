@@ -2,11 +2,11 @@ package com.cavalry.androidlib.sample.ui.fragment.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.cavalry.androidlib.sample.BuildConfig;
 import com.cavalry.androidlib.sample.mvp.presenter.TagPresenter;
-import com.cavalry.androidlib.ui.fragment.LibBaseFragment;
 import com.cavalry.androidlib.ui.fragment.LibRLBaseFragment;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -23,6 +23,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 
 public abstract class BaseFragment extends LibRLBaseFragment {
+    private final String TAG = "BaseFragment";
     protected TagPresenter mPresenter;
     protected final int PAGE_SIZE = 20;
     protected int mPageNo = 0;
@@ -49,8 +50,10 @@ public abstract class BaseFragment extends LibRLBaseFragment {
     }
 
     private void afterSuccess(Object bean, int tag) {
+        Log.e(TAG,"Bea  afterSuccess isRefreshingOrLoadingMore = " + isRefreshingOrLoadingMore());
         if(isRefreshingOrLoadingMore()){
-            refreshOrLoadMoreComplete();
+
+//            refreshOrLoadMoreComplete();
         }
     }
 
@@ -62,15 +65,19 @@ public abstract class BaseFragment extends LibRLBaseFragment {
     }
 
     private void beforeError(Throwable e, int tag) {
+        Log.e(TAG,"beforeError start +++++++");
         if(BuildConfig.DEBUG){
             e.printStackTrace();
         }
         if (isLoadingMore() && mPageNo>0){
+            Log.e(TAG,"beforeError --page");
             --mPageNo;
         }
         if(isRefreshingOrLoadingMore()){
+            Log.e(TAG,"beforeError refreshOrLoadMoreComplete");
             refreshOrLoadMoreComplete();
         }
+        Log.e(TAG,"beforeError start -------");
     }
 
     protected abstract void success(Object bean, int tag);

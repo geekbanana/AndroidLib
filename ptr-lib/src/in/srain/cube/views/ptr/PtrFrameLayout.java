@@ -30,7 +30,7 @@ public class PtrFrameLayout extends ViewGroup {
     public final static byte PTR_STATUS_LOADING = 3;
     public final static byte PTR_STATUS_COMPLETE = 4;
     private static final boolean DEBUG_LAYOUT = false;
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     private static int ID = 1;
     protected final String LOG_TAG = "ptr-frame-" + ++ID;
     // auto refresh status
@@ -781,6 +781,22 @@ public class PtrFrameLayout extends ViewGroup {
         return mStatus == PTR_STATUS_LOADING;
     }
 
+
+    /**
+     * 立即完成refresh/loadmore, 不带任何延迟
+     */
+    final public void refreshCompleteAtOnce() {
+        mType = TYPE_NONE;
+        if (DEBUG) {
+            PtrCLog.i(LOG_TAG, "refreshComplete");
+        }
+
+        if (mRefreshCompleteHook != null) {
+            mRefreshCompleteHook.reset();
+        }
+        performRefreshComplete();
+    }
+
     /**
      * Call this when data is loaded.
      * The UI will perform complete at once or after a delay, depends on the time elapsed is greater then {@link #mLoadingMinTime} or not.
@@ -883,9 +899,9 @@ public class PtrFrameLayout extends ViewGroup {
 
     public void autoRefresh(boolean atOnce, int duration, boolean isHeader) {
 
-        if (mStatus != PTR_STATUS_INIT) {
-            return;
-        }
+//        if (mStatus != PTR_STATUS_INIT) {
+//            return;
+//        }
 
         mFlag |= atOnce ? FLAG_AUTO_REFRESH_AT_ONCE : FLAG_AUTO_REFRESH_BUT_LATER;
 
