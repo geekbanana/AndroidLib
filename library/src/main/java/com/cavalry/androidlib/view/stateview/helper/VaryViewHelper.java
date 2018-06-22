@@ -16,12 +16,23 @@
 package com.cavalry.androidlib.view.stateview.helper;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+
+import com.cavalry.androidlib.toolbox.utils.LibLog;
+
+import in.srain.cube.views.ptr.LibPtrFrameLayout;
 
 
+/**
+ * 增加对LibPtrFrameLayout的支持
+ */
 public class VaryViewHelper implements IVaryViewHelper {
+    private final String TAG = "VaryViewHelper";
+
 	private View originalView;//原view(即将被替换的view)
 	private ViewGroup parentView;//originalView的parent
 	private int viewIndex;//originalView在parentView中的位置
@@ -30,11 +41,18 @@ public class VaryViewHelper implements IVaryViewHelper {
 
 	public VaryViewHelper(View originalView) {
 		super();
+		//如果父View是LibPtrFrameLayout,将LibPrtFrameLayout作为OriginalView
+		ViewParent parent = originalView.getParent();
+		LibLog.e(TAG,"parent = " + parent);
+		if(parent != null && parent instanceof LibPtrFrameLayout){
+			originalView = (View) parent;
+		}
 		this.originalView = originalView;
 	}
 
 	private void init() {
 		params = originalView.getLayoutParams();
+//		params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		if (originalView.getParent() != null) {
 			parentView = (ViewGroup) originalView.getParent();
 		} else {
@@ -56,6 +74,13 @@ public class VaryViewHelper implements IVaryViewHelper {
      */
 	@Override
 	public void showLayout(View view) {
+        //如果originalView是LibPtrFrameLayout， 那么替换之前需立即结束LibPtrFrameLayout的refresh/loadmore状态
+		if(originalView instanceof LibPtrFrameLayout){
+			if(((LibPtrFrameLayout)originalView).isRefreshingOrLoadingMore()){
+				((LibPtrFrameLayout)originalView).refreshCompleteAtOnce();
+			}
+		}
+
 		if (parentView == null) {
 			init();
 		}
@@ -69,9 +94,16 @@ public class VaryViewHelper implements IVaryViewHelper {
 
 			parentView.removeViewAt(viewIndex);
 			parentView.addView(view, viewIndex, params);
-
 			currentView = view;
 		}
+	}
+
+	/**
+	 * 用新的view替换正在显示的view
+	 * @param layoutId
+	 */
+	public void showLayout(int layoutId){
+		showLayout(inflate(layoutId));
 	}
 
 	/**
@@ -79,6 +111,12 @@ public class VaryViewHelper implements IVaryViewHelper {
 	 */
 	@Override
 	public void restoreView() {
+		//LibPtrFrameLayout被替换，会导致刷新状态无法结束，这里再次结束
+//		if(originalView instanceof LibPtrFrameLayout){
+////			if(((LibPtrFrameLayout)originalView).isRefreshingOrLoadingMore()){
+//				((LibPtrFrameLayout)originalView).refreshComplete();
+////			}
+//		}
 		showLayout(originalView);
 	}
 

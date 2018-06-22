@@ -15,7 +15,7 @@ import in.srain.cube.views.ptr.util.PtrCLog;
 /**
  * This layout view for "Pull to Refresh(Ptr)" support all of the view, you can contain everything you want.
  * support: pull to refresh / release to refresh / auto refresh / keep header view while refreshing / hide header view while refreshing
- * It defines {@link in.srain.cube.views.ptr.PtrUIHandler}, which allows you customize the UI easily.
+ * It defines {@link PtrUIHandler}, which allows you customize the UI easily.
  */
 public class PtrFrameLayout extends ViewGroup {
 
@@ -30,7 +30,7 @@ public class PtrFrameLayout extends ViewGroup {
     public final static byte PTR_STATUS_LOADING = 3;
     public final static byte PTR_STATUS_COMPLETE = 4;
     private static final boolean DEBUG_LAYOUT = false;
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     private static int ID = 1;
     protected final String LOG_TAG = "ptr-frame-" + ++ID;
     // auto refresh status
@@ -305,7 +305,7 @@ public class PtrFrameLayout extends ViewGroup {
         if (mContent != null) {
             measureContentView(mContent, widthMeasureSpec, heightMeasureSpec);
             if (DEBUG && DEBUG_LAYOUT) {
-                ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
+                MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
                 PtrCLog.d(LOG_TAG, "onMeasure content, width: %s, height: %s, margin: %s %s %s %s",
                         getMeasuredWidth(), getMeasuredHeight(),
                         lp.leftMargin, lp.topMargin, lp.rightMargin, lp.bottomMargin);
@@ -781,6 +781,22 @@ public class PtrFrameLayout extends ViewGroup {
         return mStatus == PTR_STATUS_LOADING;
     }
 
+
+    /**
+     * 立即完成refresh/loadmore, 不带任何延迟
+     */
+    final public void refreshCompleteAtOnce() {
+        mType = TYPE_NONE;
+        if (DEBUG) {
+            PtrCLog.i(LOG_TAG, "refreshComplete");
+        }
+
+        if (mRefreshCompleteHook != null) {
+            mRefreshCompleteHook.reset();
+        }
+        performRefreshComplete();
+    }
+
     /**
      * Call this when data is loaded.
      * The UI will perform complete at once or after a delay, depends on the time elapsed is greater then {@link #mLoadingMinTime} or not.
@@ -883,9 +899,9 @@ public class PtrFrameLayout extends ViewGroup {
 
     public void autoRefresh(boolean atOnce, int duration, boolean isHeader) {
 
-        if (mStatus != PTR_STATUS_INIT) {
-            return;
-        }
+//        if (mStatus != PTR_STATUS_INIT) {
+//            return;
+//        }
 
         mFlag |= atOnce ? FLAG_AUTO_REFRESH_AT_ONCE : FLAG_AUTO_REFRESH_BUT_LATER;
 

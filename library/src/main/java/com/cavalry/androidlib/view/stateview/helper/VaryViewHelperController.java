@@ -28,7 +28,6 @@ public class VaryViewHelperController {
     }
 
     public VaryViewHelperController(IVaryViewHelper helper) {
-        super();
         this.mHelper = helper;
     }
 

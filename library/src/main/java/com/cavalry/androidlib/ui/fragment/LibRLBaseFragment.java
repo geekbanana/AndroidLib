@@ -45,7 +45,7 @@ public abstract class LibRLBaseFragment extends LibBaseFragment {
 
 
     @Override
-    protected View afterOnViewCreated(View view) {
+    protected View afterInitView(View view) {
         if(getRLMode() != PtrFrameLayout.Mode.NONE){
             addRefreshLoadmore(getRLView());
         }
@@ -120,6 +120,12 @@ public abstract class LibRLBaseFragment extends LibBaseFragment {
      */
     protected PtrFrameLayout getPtrFramLayout(){
         return mPtrFrameLayout;
+    }
+
+    protected void autoRefresh(){
+        if(mPtrFrameLayout != null){
+            mPtrFrameLayout.autoRefresh();
+        }
     }
 
     protected boolean isRefreshing(){

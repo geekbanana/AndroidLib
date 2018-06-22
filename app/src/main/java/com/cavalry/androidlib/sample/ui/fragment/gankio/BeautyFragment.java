@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,10 @@ import com.cavalry.androidlib.sample.toolbox.manager.ApiManager;
 import com.cavalry.androidlib.sample.ui.adapter.gankio.BeautyAdapter;
 import com.cavalry.androidlib.sample.ui.fragment.gankio.base.GankioBaseFragment;
 import com.cavalry.androidlib.toolbox.exception.LibException;
+import com.cavalry.androidlib.toolbox.utils.LibLog;
 import com.cavalry.androidlib.toolbox.utils.LibToastUtils;
 import com.cavalry.androidlib.view.stateview.helper.VaryViewHelperController;
+import com.cavalry.androidlib.view.stateview.view.PageStateLayout;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 
 public class BeautyFragment extends GankioBaseFragment {
+    private final String TAG = "BeautyFragment";
     RecyclerView rvBeauty;
 
     private final static int TAG_BEAUTY = 1;
@@ -74,14 +78,13 @@ public class BeautyFragment extends GankioBaseFragment {
         mBeautyAdapter = new BeautyAdapter(this, null);
         rvBeauty.setAdapter(mBeautyAdapter);
 
-//        controller = new VaryViewHelperController(rvBeauty);
-//        controller.showState(PageStateLayout.PageState.ERROR, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                controller.restore();
-//            }
-//        });
 
+
+    }
+
+    @Override
+    protected void initVaryViewHelperController() {
+        controller = new VaryViewHelperController(rvBeauty);
     }
 
     @Override
@@ -106,10 +109,13 @@ public class BeautyFragment extends GankioBaseFragment {
     public void success(Object bean, int tag) {
         if(tag==TAG_BEAUTY){
             if(isRefreshing()){
+                Log.e(TAG," setNewData");
                 mBeautyAdapter.setNewData((List<BeautyBean>) bean);
             }else{
+                Log.e(TAG," addData");
                 mBeautyAdapter.addData((List<BeautyBean>) bean);
             }
+            controller.restore();
         }
     }
 
@@ -121,6 +127,13 @@ public class BeautyFragment extends GankioBaseFragment {
         }else{
             if(tag==TAG_BEAUTY){
                 LibToastUtils.toast("网络错误");
+                LibLog.e(TAG,"controller = " + controller);
+                controller.showState(PageStateLayout.PageState.ERROR, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        autoRefresh();
+                    }
+                });
             }
         }
     }
